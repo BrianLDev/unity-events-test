@@ -29,8 +29,8 @@ public class CharacterBase : MonoBehaviour {
 
     public void TakeDamage(int damage) {
         if (alive && health > 0) {
-            rend.material.color = Color.red;
-            health = Mathf.Clamp(health - 10, 0, 100);
+            ChangeColor(Color.red);
+            health = Mathf.Clamp(health - damage, 0, 100);
             Debug.Log(this.name + " damaged for " + damage + ". Health now at " + health);
             if (health <= 0) 
                 Die();
@@ -39,8 +39,8 @@ public class CharacterBase : MonoBehaviour {
 
     public void Heal(int healPts) {
         if (alive && health < 100) {
-            rend.material.color = Color.green;
-            health = Mathf.Clamp(health + 10, 0, 100);
+            ChangeColor(Color.green);
+            health = Mathf.Clamp(health + healPts, 0, 100);
             Debug.Log(this.name + " healed for " + healPts + ". Health now at " + health);
         }
     }
@@ -48,7 +48,7 @@ public class CharacterBase : MonoBehaviour {
     public void Die() {
         Debug.Log("===== " + this.name + " IS DEAD ====");
         alive = false;
-        rend.material.color = Color.black;
+        ChangeColor(Color.black);
         transform.Rotate(69, 13, 24);
     }
 

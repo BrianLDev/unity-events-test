@@ -18,6 +18,9 @@ public class Player : CharacterBase {
     }
 
     private void Update() {
+
+        Move();
+        
         if (Input.GetKeyDown(KeyCode.Equals) || Input.GetKeyDown(KeyCode.Plus)) {
             if (alive && health < 100) {
                 OnPlayerHeal?.Invoke(10);
@@ -28,6 +31,18 @@ public class Player : CharacterBase {
                 OnPlayerDamage?.Invoke(10);
             }
         }
+
+    }
+
+    public void Move() {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+            transform.Translate(transform.right);
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            transform.Translate(-transform.right);
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+            transform.Translate(transform.forward);
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+            transform.Translate(-transform.forward);
     }
 
     public new void Restart() {
