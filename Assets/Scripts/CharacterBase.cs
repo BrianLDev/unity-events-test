@@ -4,14 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterBase : MonoBehaviour {
+
     public int health = 100;
     public int energy = 100;
-    
     protected bool alive = true;
+    protected Vector3 originalPosition;
     protected MeshRenderer rend;
 
+
     protected void Start() {
+        originalPosition = transform.position;
         rend = GetComponent<MeshRenderer>();
+        GameManagerTest.OnHealAll += Heal;
+        GameManagerTest.OnDamageAll += TakeDamage;
         GameManagerTest.OnRestartGame += Restart;
     }
 
@@ -49,13 +54,14 @@ public class CharacterBase : MonoBehaviour {
         Debug.Log("===== " + this.name + " IS DEAD ====");
         alive = false;
         ChangeColor(Color.black);
-        transform.Rotate(69, 13, 24);
+        transform.Rotate(40, 13, 24);
     }
 
     public void Restart() {
         health = 100;
         alive = true;
         rend.material.color = Color.white;
+        transform.position = originalPosition;
         transform.rotation = Quaternion.identity;
     }
 }
