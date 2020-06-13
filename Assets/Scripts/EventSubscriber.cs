@@ -11,26 +11,26 @@ public class EventSubscriber : MonoBehaviour {
         
     private void Start() {
         publisher = GetComponent<EventPublisher>();
-        publisher.OnSpacePressed += OtherClassFunction;    // OtherClassFunction is now subscribed to OnSpacePressed
-        publisher.OnSpacePressed += UnsubscribeFunction;   // UnsubscribeTest is now subscribed to OnSpacePressed
+        publisher.OnEPressed += OtherClassFunction;    // OtherClassFunction is now subscribed to OnEPressed
+        publisher.OnEPressed += UnsubscribeFunction;   // UnsubscribeTest is now subscribed to OnEPressed
         publisher.OnReturnPressed += OtherClassFunction;    // OtherClassFunction is now subscribed to OnEnterPressed
         publisher.OnReturnPressed += UnsubscribeFunction;   // UnsubscribeTest is now subscribed to OnEnterPressed
-        publisher.OnDelegateFloatEvent += DelegateFloatSubscriber;  // DelegateFloatSubscriber is now subscribed to OnDelegateFloatEvent
+        publisher.OnDelegateFloatEvent += DelegateFloatFunction;  // DelegateFloatSubscriber is now subscribed to OnDelegateFloatEvent
+        publisher.OnActionEventSimple += ActionFunction;
+        publisher.OnActionEventCustom += ActionFunction;
     }
 
     public void OtherClassFunction(object sender, EventArgs e) {
         Debug.Log("OtherClassFunction triggered by " + sender);
     }
-
     public void OtherClassFunction(object sender, EventPublisher.OnReturnPressedEventArgs e) {
         // alternate version that takes the custom event args for OnReturnPressed
         Debug.Log("OtherClassFunction triggered by " + sender + ".  Return count = " + e.returnPressedCount);
     }
-
     public void UnsubscribeFunction(object sender, EventArgs e) {
         Debug.Log("UnsubscribeFunction triggered by " + sender +
             ".  Now unsubscribing this func from OnSpace and should not come up again.");
-        publisher.OnSpacePressed -= UnsubscribeFunction;
+        publisher.OnEPressed -= UnsubscribeFunction;
     }
     public void UnsubscribeFunction(object sender, EventPublisher.OnReturnPressedEventArgs e) {
         // alternate version that takes the custom event args for OnReturnPressed
@@ -38,8 +38,13 @@ public class EventSubscriber : MonoBehaviour {
             ".  Now unsubscribing this func from OnReturn and should not come up again.");
         publisher.OnReturnPressed -= UnsubscribeFunction;
     }
-
-    public void DelegateFloatSubscriber(float f) {
+    public void DelegateFloatFunction(float f) {
         Debug.Log("DelegateFloatSubscriber function triggered. Float value = " + f);
+    }
+    public void ActionFunction() {
+        Debug.Log("ActionFunction triggered.");
+    }
+    public void ActionFunction(bool b, int i, EventPublisher.OnReturnPressedEventArgs e) {
+        Debug.Log("ActionFunction triggered. Bool = " + b + ", Int = " + i + ", Return count = " + e.returnPressedCount);
     }
 }
