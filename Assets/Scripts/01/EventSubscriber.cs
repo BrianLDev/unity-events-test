@@ -6,7 +6,7 @@ using UnityEngine;
 public class EventSubscriber : MonoBehaviour {
     // SUBSCRIBER CLASS
 
-    EventPublisher publisher;  // need a reference to the publisher class to subscribe to events.  If they are static, this is not needed
+    EventPublisher publisher;  // need a reference to the publisher class to subscribe to events.  If the publisher class is static, this is not needed and can reference the class directly
     
         
     private void Start() {
