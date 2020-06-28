@@ -39,11 +39,5 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  },
-  "lock": {
-    "com.vladfaust.unitywakatime": {
-      "revision": "package",
-      "hash": "b8a1d9f726608a3517fade7d045c7c629a57c302"
-    }
   }
 }
